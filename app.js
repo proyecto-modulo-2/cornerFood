@@ -28,6 +28,7 @@ app.use('/', index);
 
 
 //Static Files
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Server is listening

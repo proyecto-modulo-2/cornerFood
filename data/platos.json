@@ -1,0 +1,12 @@
+[{
+  "title": "Albóndigas con patatas",
+  "description": "Un plato preparado con mucho cariño siguiendo la receta tradicional de la abuela.",
+  "image": "http://www.demoslavueltaaldia.com/sites/default/files/albondigas-carne-arroz-frito.jpg",
+  "price": "10€"  
+}, 
+{
+  "title": "Lentejas",
+  "description": "Otro de los grandes platos de nuestra abuela.",
+  "image": "https://www.javirecetas.com/wp-content/uploads/2010/04/lentejas-con-chorizo-600x900.jpg",
+  "price": "12€"  
+  }]
