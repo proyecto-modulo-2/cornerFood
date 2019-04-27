@@ -1,5 +1,8 @@
 //Global Variables
 const express = require('express');
+// const session = require('express-session');
+const passport = require('passport')
+const bcrypt = require('bcryptjs');
 const createError = require('http-errors');
 const path = require('path');
 const bodyParser   = require('body-parser');
@@ -11,6 +14,7 @@ const session = require('./config/session.config');
 
 
 require('./config/db.config');
+require('./config/passport.config');
 
 //Inicializaciones
 const app = express();
@@ -24,6 +28,8 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session);
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Rutas
 const index = require('./routes/index.routes');
