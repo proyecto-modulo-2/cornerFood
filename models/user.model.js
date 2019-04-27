@@ -25,6 +25,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum : ['USER', 'ADMIN'],
     default : 'USER'
+  },
+  status: {
+    type: String,
+    enum: ['Pending Confirmation', 'Active'],
+    default: 'Pending Confirmation'
+  },
+  confirmationCode: {
+    type: String,
+    unique: true
   }
 }, { timestamps: true })
 

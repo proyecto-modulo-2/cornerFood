@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
-const passport = require('passport')
+const passport = require('passport');
+const nodemailer = require('nodemailer');
+const templates = require('../templates/template');
+const subject = "Welcome to Corner Food!";
+const message = "Hello and welcome to the best food experience you'll try in your life"
 
 module.exports.register = (req, res, next) => {
   res.render('auth/register')
@@ -13,6 +17,12 @@ module.exports.doRegister = (req, res, next) => {
   const {username, email, password} = req.body;
   const salt = bcrypt.genSaltSync(bcryptSalt);
   const hashPass = bcrypt.hashSync(password, salt);
+
+  const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let token = '';
+  for (let i = 0; i < 25; i++) {
+      token += characters[Math.floor(Math.random() * characters.length )];
+  }
 
   if(username === "" || email === "" || password === "") {
     res.render('auth/register', {
@@ -31,12 +41,32 @@ module.exports.doRegister = (req, res, next) => {
       User.create({
         username,
         email,
-        password: hashPass
+        password: hashPass,
+        confirmationCode: token
       })
-      .then((user) => {
-        console.log(user)
+      .then((user) => { ///////////////////
+
+        let transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: 'cornerfood.ironhack@gmail.com',
+            pass: 'Qwerty12345678'
+          }
+        });
+        transporter.sendMail({
+          from: '"Corner Food 👻" <myawesome@project.com>',
+          to: user.email, 
+          subject: subject, 
+          text: message,
+          html: templates.templateCorner(message),
+        })
+        .then(info => console.log(info))
+        .catch(error => console.log(error));
+        });
+
+        console.log(user)///////////////////
         res.redirect('/login')
-      })
+      
       .catch((error) => {
         console.log(error)
       })
