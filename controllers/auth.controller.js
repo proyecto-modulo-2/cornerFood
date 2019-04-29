@@ -59,6 +59,7 @@ module.exports.doRegister = (req, res, next) => {
           subject: subject, 
           text: message,
           html: templates.templateCorner(message),
+          html: `pulsa <a href="http://localhost:3000/auth/confirm/${user.confirmationCode}">aqui</a> para activar tu cuenta`
         })
         .then(info => console.log(info))
         .catch(error => console.log(error));
@@ -138,4 +139,14 @@ module.exports.logout = (req, res, next) => {
   req.session.destroy((err) => {
     res.redirect('/login')
   })
+}
+
+module.exports.confirm = (req, res, next) => {
+  let confirm = req.params.confirmationCode
+  console.log(confirm)
+  User.updateOne({confirmationCode: confirm}, {status: "Active"})
+  .then(() => {
+    res.redirect('/login')
+  })
+  .catch(error=>next(error))
 }
