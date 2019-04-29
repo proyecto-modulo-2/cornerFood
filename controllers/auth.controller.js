@@ -79,6 +79,7 @@ module.exports.login = (req, res, next) => {
 }
 
 module.exports.doLogin = (req, res, next) => {
+  
   // passport.authenticate("Local-Auth", {
   //   successRedirect: "/home",
   //   failureRedirect: "/login",
