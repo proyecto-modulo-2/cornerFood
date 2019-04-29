@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 const userSchema = new mongoose.Schema({
@@ -36,6 +37,10 @@ const userSchema = new mongoose.Schema({
     unique: true
   }
 }, { timestamps: true })
+
+userSchema.methods.checkPassword = function(password) {
+  return bcrypt.compare(password, this.password);
+}
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

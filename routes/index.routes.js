@@ -7,5 +7,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/home', platosController.list);
+router.get('/platos/:platoId', platosController.detail)
 
 module.exports = router;

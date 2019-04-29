@@ -79,7 +79,7 @@ module.exports.login = (req, res, next) => {
 }
 
 module.exports.doLogin = (req, res, next) => {
-  
+
   // passport.authenticate("Local-Auth", {
   //   successRedirect: "/home",
   //   failureRedirect: "/login",
@@ -87,51 +87,51 @@ module.exports.doLogin = (req, res, next) => {
   //   passReqToCallback: true,
   // });
 
-  // passport.authenticate('Local-Auth', (error, user, validation) => {
-  //   if (error) {
-  //     next(error);
-  //   } else if (!user) {
-  //     res.render('auth/register', {
-  //       user: req.body,
-  //       errors: validation
+  passport.authenticate('Local-Auth', (error, user, validation) => {
+    if (error) {
+      next(error);
+    } else if (!user) {
+      res.render('auth/login', {
+        user: req.body,
+        errorMessage: "Incorrect Email or Password"
+      })
+    } else {
+      return req.login(user, (error) => {
+        if (error) {
+          next(error)
+        } else {
+          res.redirect('/home')
+        }
+      })
+    }
+  })(req, res, next);
+
+  // const {email, password} = req.body;
+
+  // if(email==="" || password==="") {
+  //   res.render('auth/login', {
+  //     errorMessage: "Please enter an email and a password"
+  //   })
+  //   return;
+  // }
+  // User.findOne({"email": email})
+  // .then((user) => {
+  //   if(!user) {
+  //     res.render('auth/login', {
+  //       errorMessage: "Invalid email or password"
   //     })
+  //     return;
+  //   }
+  //   if (bcrypt.compareSync(password, user.password)) {
+  //     req.session.currentUser = user;
+  //     res.redirect('/home')
   //   } else {
-  //     return req.login(user, (error) => {
-  //       if (error) {
-  //         next(error)
-  //       } else {
-  //         res.redirect('/home')
-  //       }
+  //     res.render('auth/login', {
+  //       errorMessage: "Invalid email or password"
   //     })
   //   }
-  // })(req, res, next);
-
-  const {email, password} = req.body;
-
-  if(email==="" || password==="") {
-    res.render('auth/login', {
-      errorMessage: "Please enter an email and a password"
-    })
-    return;
-  }
-  User.findOne({"email": email})
-  .then((user) => {
-    if(!user) {
-      res.render('auth/login', {
-        errorMessage: "Invalid email or password"
-      })
-      return;
-    }
-    if (bcrypt.compareSync(password, user.password)) {
-      req.session.currentUser = user;
-      res.redirect('/home')
-    } else {
-      res.render('auth/login', {
-        errorMessage: "Invalid email or password"
-      })
-    }
-  })
-  .catch(error=>next(error));
+  // })
+  // .catch(error=>next(error));
 }
 
 module.exports.logout = (req, res, next) => {
