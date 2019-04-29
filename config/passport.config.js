@@ -37,16 +37,18 @@ passport.use('Local-Auth', new LocalStrategy({
   User.findOne({ email: email})
     .then(user => {
       if (!user) {
-        next(null, null, { password: 'Invalid email or password' })
+        next(null, null, 'Invalid email or password')
       } else {
         return user.checkPassword(password)
           .then(match => {
             if (!match) {
-              next(null, null, { password: 'Invalid email or password' })
+              next(null, null, 'Invalid email or password')
+            } else if (user.status !== 'Active') {
+              next(null, null, 'Please activate your account')
             } else {
               next(null, user);
             }
           })
       }
-    }) 
+    }).catch(next)
 }))

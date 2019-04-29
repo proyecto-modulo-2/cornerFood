@@ -1,5 +1,5 @@
 module.exports = {
-  templateCorner: (message) => { return `
+  templateCorner: (message, user) => { return `
   <!doctype html>
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
@@ -202,6 +202,7 @@ module.exports = {
     >
       <h2>Hello </h2>
       ${message}
+      Pulsa <a href="http://localhost:3000/auth/confirm/${user.confirmationCode}">aqui</a> para activar tu cuenta
     </div>
   
             </td>

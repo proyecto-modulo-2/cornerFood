@@ -4,10 +4,8 @@ const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
 const passport = require('passport');
-const nodemailer = require('nodemailer');
-const templates = require('../templates/template');
-const subject = "Welcome to Corner Food!";
-const message = "Hello and welcome to the best food experience you'll try in your life"
+const notificationsService = require('../services/notifications.service')
+
 
 module.exports.register = (req, res, next) => {
   res.render('auth/register')
@@ -24,55 +22,33 @@ module.exports.doRegister = (req, res, next) => {
       token += characters[Math.floor(Math.random() * characters.length )];
   }
 
-  if(username === "" || email === "" || password === "") {
+  if (username === "" || email === "" || password === "") {
     res.render('auth/register', {
       errorMessage: "Indicate a username, an email & a password to register"
     });
-    return
-  } 
-    User.findOne({"email": email})
-    .then(user => {
-      if(user!==null) {
-      res.render('auth/register', {
-        errorMessage: "The email is already registered!"
-      });
-      return
-      };
-      User.create({
-        username,
-        email,
-        password: hashPass,
-        confirmationCode: token
-      })
-      .then((user) => { ///////////////////
-
-        let transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-            user: 'cornerfood.ironhack@gmail.com',
-            pass: 'Qwerty12345678'
-          }
-        });
-        transporter.sendMail({
-          from: '"Corner Food 👻" <myawesome@project.com>',
-          to: user.email, 
-          subject: subject, 
-          text: message,
-          html: templates.templateCorner(message),
-          html: `pulsa <a href="http://localhost:3000/auth/confirm/${user.confirmationCode}">aqui</a> para activar tu cuenta`
-        })
-        .then(info => console.log(info))
-        .catch(error => console.log(error));
-        });
-
-        console.log(user)///////////////////
-        res.redirect('/login')
-      
-      .catch((error) => {
-        console.log(error)
-      })
+  } else {
+    User.findOne({ email: email })
+      .then(user => {
+        if (user) {
+          res.render('auth/register', {
+            errorMessage: "The email is already registered!"
+          });
+        } else {
+          user = new User({
+            username,
+            email,
+            password: hashPass,
+            confirmationCode: token
+          })
+          return user.save()
+            .then(user => {
+              return notificationsService.activateAccount(user)
+                .then(() => res.redirect('/login'));
+            })
+        }
     })
-    .catch(error =>next(error))
+    .catch(error =>next(error)) 
+  }
 }
 
 module.exports.login = (req, res, next) => {
@@ -94,7 +70,7 @@ module.exports.doLogin = (req, res, next) => {
     } else if (!user) {
       res.render('auth/login', {
         user: req.body,
-        errorMessage: "Incorrect Email or Password"
+        errorMessage: validation
       })
     } else {
       return req.login(user, (error) => {
@@ -143,10 +119,7 @@ module.exports.logout = (req, res, next) => {
 
 module.exports.confirm = (req, res, next) => {
   let confirm = req.params.confirmationCode
-  console.log(confirm)
-  User.updateOne({confirmationCode: confirm}, {status: "Active"})
-  .then(() => {
-    res.redirect('/login')
-  })
-  .catch(error=>next(error))
+  User.updateOne({confirmationCode: confirm}, { $set: {status: "Active"}})
+    .then(() => res.redirect('/login'))
+    .catch(error=>next(error))
 }
