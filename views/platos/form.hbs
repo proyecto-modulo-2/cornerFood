@@ -4,11 +4,12 @@
   </div>
 {{/if}}
 
-{{#if book.isNew}}
-  <form action="/books" method="POST">
-{{else}}
+{{!-- {{#if platos.isNew}} --}}
+  <form action="/platos" method="POST" enctype="multipart/form-data">
+
+{{!-- {{else}}
   <form action="/books/{{book._id}}" method="POST">
-{{/if}}
+{{/if}} --}}
 
   <div class="form-group">
     <label>Plate Title</label>
@@ -24,7 +25,7 @@
 
   <div class="form-group">
     <label>Plate Image</label>
-    <input type="text" class="form-control {{#if errors.thumbnailUrl }}is-invalid{{/if}}"
+    <input type="file" class="form-control {{#if errors.thumbnailUrl }}is-invalid{{/if}}"
       name="image" value="{{plato.image}}">
 
     {{#if errors.image }}
@@ -48,7 +49,7 @@
 
     <div class="form-group">
     <label>Price</label>
-    <input type="text" class="form-control {{#if errors.price }}is-invalid{{/if}}"
+    <input type="number" class="form-control {{#if errors.price }}is-invalid{{/if}}"
       name="price" value="{{plato.price}}">
 
     {{#if errors.image }}
@@ -58,7 +59,7 @@
     {{/if}}
   </div>
 
-  <div class="form-group">
+  {{!-- <div class="form-group">
     <label>Main Category</label>
 
     <select name="mainCategory" class="form-control">
@@ -81,10 +82,10 @@
         <label for="category-{{category}}" class="form-check-label">{{category}}</label>
       </div>
     {{/each}}
-  </div>
+  </div> --}}
 
   <div class="d-flex">
     <button type="submit" class="btn btn-primary mr-3">Submit</button>
-    <a class="btn btn-secondary" href="/books">Back</a>
+    <a class="btn btn-secondary" href="/home">Back</a>
   </div>
 </form>

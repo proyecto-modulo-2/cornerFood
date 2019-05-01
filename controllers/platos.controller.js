@@ -15,3 +15,7 @@ module.exports.detail = (req, res, next) => {
   .then(plato=> res.render('platos/detail', {plato}))
   .catch(error=>next(error))
 }
+
+module.exports.create = (req, res, next) => {
+  res.render('platos/form')
+}

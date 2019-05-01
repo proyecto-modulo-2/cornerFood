@@ -36,9 +36,11 @@ app.use(passport.session());
 
 //Rutas
 const index = require('./routes/index.routes');
-const authRoute = require('./routes/auth.routes')
+const authRoute = require('./routes/auth.routes');
+const platosRoute = require('./routes/platos.routes');
 app.use('/', index);
 app.use('/', authRoute);
+app.use('/', platosRoute);
 
 
 //Static Files
