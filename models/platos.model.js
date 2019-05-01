@@ -13,7 +13,6 @@ const platosSchema = new mongoose.Schema ({
   },
   image: {
     type: String,
-    match: [URL_REGEX, 'Invalid URL pattern'],
     required: [true, 'image required!']
   },
   price: {

@@ -6,7 +6,11 @@ module.exports = session({
   secret: "Top Secret!",
   resave: true,
   saveUninitialized: false,
-  cookie: { maxAge: 5000 },
+  cookie: { 
+    secure: process.env.SESSION_SECURE || false,
+    httpOnly: true,
+    maxAge: 500000
+  },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     ttl: 60 * 60 * 24 * 7

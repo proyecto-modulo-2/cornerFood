@@ -56,14 +56,6 @@ module.exports.login = (req, res, next) => {
 }
 
 module.exports.doLogin = (req, res, next) => {
-
-  // passport.authenticate("Local-Auth", {
-  //   successRedirect: "/home",
-  //   failureRedirect: "/login",
-  //   failureFlash: true,
-  //   passReqToCallback: true,
-  // });
-
   passport.authenticate('Local-Auth', (error, user, validation) => {
     if (error) {
       next(error);
@@ -82,33 +74,6 @@ module.exports.doLogin = (req, res, next) => {
       })
     }
   })(req, res, next);
-
-  // const {email, password} = req.body;
-
-  // if(email==="" || password==="") {
-  //   res.render('auth/login', {
-  //     errorMessage: "Please enter an email and a password"
-  //   })
-  //   return;
-  // }
-  // User.findOne({"email": email})
-  // .then((user) => {
-  //   if(!user) {
-  //     res.render('auth/login', {
-  //       errorMessage: "Invalid email or password"
-  //     })
-  //     return;
-  //   }
-  //   if (bcrypt.compareSync(password, user.password)) {
-  //     req.session.currentUser = user;
-  //     res.redirect('/home')
-  //   } else {
-  //     res.render('auth/login', {
-  //       errorMessage: "Invalid email or password"
-  //     })
-  //   }
-  // })
-  // .catch(error=>next(error));
 }
 
 module.exports.logout = (req, res, next) => {
