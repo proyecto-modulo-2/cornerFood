@@ -19,3 +19,19 @@ module.exports.detail = (req, res, next) => {
 module.exports.create = (req, res, next) => {
   res.render('platos/form')
 }
+
+module.exports.doCreate = (req,res,next) => {
+  console.log(req.body)
+
+  const plato = new Plato(req.body)
+  plato.save()
+  .then(() => res.redirect('/home'))
+  .catch((error) => {
+    if (error instanceof mongoose.Error.ValidationError) {
+      console.log(error)
+      res.render('platos/form', {plato, error})
+    } else {
+      next(error)
+    }
+  });
+}
