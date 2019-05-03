@@ -57,6 +57,8 @@ passport.use('Local-Auth', new LocalStrategy({
         return user.checkPassword(password)
           .then(match => {
             if (!match) {
+              console.log("PROBLEMA DE CONTRASEÑA")
+
               next(null, null, 'Invalid email or password')
             } else if (user.status !== 'Active') {
               next(null, null, 'Please activate your account')

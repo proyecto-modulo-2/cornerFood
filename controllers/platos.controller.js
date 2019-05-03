@@ -43,7 +43,6 @@ module.exports.doCreate = (req, res, next) => {
 
 module.exports.edit = (req, res, next) => {
   let id = req.params.id
-  console.log(id)
   Plato.findById(id)
   .then((plato) => {
     // console.log(plato.description)
@@ -55,9 +54,10 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.doEdit = (req, res, next) => {
-  let id = req.body
-  console.info(id)
-  Plato.findByIdAndUpdate(id, req.body, {new: true, runValidators: true})
+  let id = req.params.id
+  const { title, description, price } = req.body;
+  const image = req.file.url;
+  Plato.findByIdAndUpdate(id, {title, description, price, image}, {new: true, runValidators: true})
   .then(()=> {
     console.info()
     res.redirect('/home')
@@ -70,4 +70,13 @@ module.exports.doEdit = (req, res, next) => {
       next(error)
     }
   });
+}
+
+module.exports.delete = (req, res, next) => {
+  let id = req.params.id
+  Plato.findByIdAndRemove(id)
+  .then(() => {
+    res.redirect('/home')
+  })
+  .catch((error) => next(error));
 }
