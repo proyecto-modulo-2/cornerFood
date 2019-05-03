@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const bcryptSalt = 10;
+
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -37,6 +40,28 @@ const userSchema = new mongoose.Schema({
     unique: true
   }
 }, { timestamps: true })
+
+userSchema.pre('save', function(next) {
+  const user = this;
+
+  if (user.email === ADMIN_EMAIL) {
+    user.role = 'ADMIN';
+  }
+  if (!user.isModified('password')) {
+    bcrypt.genSalt(bcryptSalt)
+      .then(salt => {
+        return bcrypt.hash(user.password, salt)
+          .then(hash => {
+            user.password = hash;
+            console.log(user.password)
+            next();
+          });
+      })
+      .catch(error => next(error));
+  } else {
+    next();
+  }
+})
 
 userSchema.methods.checkPassword = function(password) {
   return bcrypt.compare(password, this.password);
