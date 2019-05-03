@@ -13,7 +13,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const session = require('./config/session.config');
-
+// const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
 require('./config/db.config');
 require('./config/passport.config');
@@ -35,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(GoogleStrategy);
 
 //Rutas
 const index = require('./routes/index.routes');
