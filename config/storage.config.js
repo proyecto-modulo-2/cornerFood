@@ -3,9 +3,9 @@ const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer');
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'corner-food',
-    api_key: process.env.CLOUDINARY_API_KEY || '597672671598768',
-    api_secret: process.env.CLOUDINARY_API_SECRET || 'A8wG2p-sccJI3Ib_NwAokhbluuQ',
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const storage = cloudinaryStorage({
@@ -17,6 +17,6 @@ const storage = cloudinaryStorage({
     }
 });
 
-const uploadCloud = multer ({ storage: storage });
+const uploadCloud = multer({ storage: storage });
 
 module.exports = uploadCloud;

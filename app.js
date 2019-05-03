@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 //Global Variables
 const express = require('express');
 // const session = require('express-session');

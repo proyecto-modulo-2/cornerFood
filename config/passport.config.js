@@ -13,23 +13,6 @@ passport.deserializeUser((id, next) => {
   });
 });
 
-// passport.use("Local-Auth", new LocalStrategy((email, password, next) => {
-
-  
-
-//   User.findOne({"email": email}, (err, user) => {
-//     if(err) {
-//       return next(err);
-//     }
-//     if(!user) {
-//       return next(null, false, {errorMessage: "Incorrect mail or password"});
-//     }
-//     if(!bcrypt.compareSync(password, user.password)) {
-//       return next(null, false, {errorMessage: "Incorrect mail or password"});
-//     }
-//     return next(null, user);
-//   });
-// }));
 passport.use('Local-Auth', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
