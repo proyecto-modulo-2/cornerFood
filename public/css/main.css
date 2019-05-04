@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   background: #DCE35B;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #45B649, #DCE35B);  /* Chrome 10-25, Safari 5.1-6 */
@@ -5,4 +9,8 @@ body {
 }
 
 
-
+footer{
+  position: relative;
+  bottom: 0%;
+  width: 100%
+}

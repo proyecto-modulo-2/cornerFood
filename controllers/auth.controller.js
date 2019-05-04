@@ -12,9 +12,7 @@ module.exports.register = (req, res, next) => {
 }
 
 module.exports.doRegister = (req, res, next) => {
-  const {username, email, password} = req.body;
-  const salt = bcrypt.genSaltSync(bcryptSalt);
-  const hashPass = bcrypt.hashSync(password, salt);
+  const {username, email, password } = req.body;
 
   const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let token = '';
@@ -37,7 +35,7 @@ module.exports.doRegister = (req, res, next) => {
           user = new User({
             username,
             email,
-            password: hashPass,
+            password: password,
             confirmationCode: token
           })
           return user.save()
@@ -66,6 +64,22 @@ module.exports.doLogin = (req, res, next) => {
       })
     } else {
       return req.login(user, (error) => {
+        if (error) {
+          next(error)
+        } else {
+          res.redirect('/home')
+        }
+      })
+    }
+  })(req, res, next);
+}
+
+module.exports.loginWithGoogleCallback = (req, res, next) => {
+  passport.authenticate('google', (error, user) => {
+    if (error) {
+      next(error);
+    } else {
+      req.login(user, (error) => {
         if (error) {
           next(error)
         } else {
