@@ -12,7 +12,7 @@ const platosSchema = new mongoose.Schema ({
     required: [true, 'description required!']
   },
   image: {
-    type: String,
+    type: [String],
     required: [true, 'image required!']
   },
   price: {
