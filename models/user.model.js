@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-const bcryptSalt = 10;
+const SALT_WORK_FACTOR = 10;
 
 
 const userSchema = new mongoose.Schema({
@@ -35,10 +35,7 @@ const userSchema = new mongoose.Schema({
     enum: ['Pending Confirmation', 'Active'],
     default: 'Pending Confirmation'
   },
-  confirmationCode: {
-    type: String,
-    unique: true
-  }
+  confirmationCode: String
 }, { timestamps: true })
 
 userSchema.pre('save', function(next) {
@@ -47,13 +44,12 @@ userSchema.pre('save', function(next) {
   if (user.email === ADMIN_EMAIL) {
     user.role = 'ADMIN';
   }
-  if (!user.isModified('password')) {
-    bcrypt.genSalt(bcryptSalt)
+  if (user.isModified('password')) {
+    bcrypt.genSalt(SALT_WORK_FACTOR)
       .then(salt => {
         return bcrypt.hash(user.password, salt)
           .then(hash => {
             user.password = hash;
-            console.log(user.password)
             next();
           });
       })
@@ -64,7 +60,7 @@ userSchema.pre('save', function(next) {
 })
 
 userSchema.methods.checkPassword = function(password) {
-  return bcrypt.compare(password, this.password);
+  return bcrypt.compare(password, this.password)
 }
 
 const User = mongoose.model('User', userSchema);

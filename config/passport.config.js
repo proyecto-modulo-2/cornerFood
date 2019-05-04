@@ -14,34 +14,53 @@ passport.deserializeUser((id, next) => {
   });
 });
 
-passport.use(new GoogleStrategy({
+passport.use('google', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENTID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.GOOGLE_CALLBACK_URL || "/authenticate/google/cb"
-}, (accessToken, refreshToken, profile, done) => {
-  User.findOne({ googleID: profile.id })
-  .then(user => {
-    if (err) {
-      return done(err);
-    }
-    if (user) {
-      return done(null, user);
-    }
-
-    const newUser = new User({
-      googleID: profile.id
-    });
-
-    newUser.save()
+}, (accessToken, refreshToken, profile, next) => {
+  const email = profile.emails ? profile.emails[0].value : undefined;
+  User.findOne({ $or: [
+      { googleID: profile.id },
+      { email: email },
+    ]})
     .then(user => {
-      done(null, newUser);
+      if (user) {
+        next(null, user);
+      } else {
+        user = new User({
+          googleID: profile.id,
+          password: Math.random().toString(36),
+          username: profile.displayName,
+          email: email,
+          status: 'Active'
+        });
+
+        return user.save()
+          .then(user => next(null, user))
+      }
     })
-  })
-  .catch((error) => {
-    next(error)
-  })
+    .catch(next)
 
 }));
+
+/**
+ * 
+ username: {
+    type: String,
+    required: [true, 'name is required!'],
+    minlength: [3, 'Name needs at last 3 chars'],
+    trim: true
+  },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
+    trim: true,
+    lowercase: true,
+    match: [EMAIL_PATTERN, 'Invalid email pattern']
+  },
+ */
 
 passport.use('Local-Auth', new LocalStrategy({
   usernameField: 'email',
@@ -56,6 +75,7 @@ passport.use('Local-Auth', new LocalStrategy({
       } else {
         return user.checkPassword(password)
           .then(match => {
+            console.log(match)
             if (!match) {
               console.log("PROBLEMA DE CONTRASEÑA")
 
