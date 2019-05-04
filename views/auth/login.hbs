@@ -1,4 +1,4 @@
-<form action="/login" method="POST" id="form">
+{{!-- <form action="/login" method="POST" id="form">
   <h2>Login</h2>
 
   <label for="email">Email</label>
@@ -13,9 +13,35 @@
 
   <button>Sign in</button>
 
-</form>
-<a href="/authenticate/google" class="btn btn-block btn-danger"><i class="fab fa-google"></i> Login with Google</a>
+</form> --}}
 
-<p class="account-message">
-    Don't have an account? <a href="/register">Register</a>
-</p>
+
+{{!-- <div class="dropdown-menu"> --}}
+<div class="mx-auto" style="width: 300px;">
+  <form action="/login" method="POST">
+    <div class="form-group">
+      <label for="exampleDropdownFormEmail1">Email address</label>
+      <input type="email" name="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+    </div>
+    <div class="form-group">
+      <label for="exampleDropdownFormPassword1">Password</label>
+      <input type="password" name="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+
+      {{#if errorMessage }}
+      <div class="error-message">{{ errorMessage }}</div>
+      {{/if}}
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+
+  </form>
+  
+
+  <a href="/authenticate/google" class="btn btn-block btn-danger"><i class="fab fa-google"></i> Login with Google</a>
+
+  <p class="account-message">
+    Don't have an account? <a href="/register"><button type="submit" class="btn btn-primary">Register</button></a>
+  </p>
+
+</div>
+
+
