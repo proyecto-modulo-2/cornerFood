@@ -1,15 +1,17 @@
-<img class="card-img-top" src="{{plato.image}}" alt="{{plato.title}}">
-<div class="card-body">
+
+  <img class="card-img-top" src="{{plato.image}}" alt="{{plato.title}}">
+  <div class="card-body">
     <h5 class="card-title">{{plato.title}}</h5>
     <p class="card-text">{{plato.description}}</p>
     <p class="card-text">{{plato.price}}€</p>
     {{!-- <a href="/plato/{{plato._id}}" class="btn btn-primary">Ver Más</a> --}}
-</div>
+  </div>
 
-<form action="/{{plato.id}}/edit">
+  <form action="/{{plato.id}}/edit">
   <button type="Submit">Edit</button>
-</form>
+  </form>
+  
 
-<form action="/{{plato.id}}/delete" method="POST">
+  <form action="/{{plato.id}}/delete" method="POST">
     <button type="submit">Delete Plato</button>
-</form>
+  </form>
