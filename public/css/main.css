@@ -14,3 +14,22 @@ footer{
   bottom: 0%;
   width: 100%
 }
+
+.pageFooter{
+  width: 100;
+  height: 100%;
+}
+
+#pageFooter{
+  display: flex;
+}
+
+.imagen {
+  width: 30%;
+  height: 30%;
+}
+
+.letra {
+  display: inline;
+  display: flex;
+}
