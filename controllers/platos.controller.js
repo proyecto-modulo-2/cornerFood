@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 const Plato = require('../models/platos.model');
-const uploadCloud = require('../config/storage.config');
 
 
 module.exports.list = (req, res, next) => {
@@ -57,6 +56,7 @@ module.exports.doEdit = (req, res, next) => {
   let id = req.params.id
   const { title, description, price } = req.body;
   const image = req.file.url;
+  console.log(image);
   Plato.findByIdAndUpdate(id, {title, description, price, image}, {new: true, runValidators: true})
   .then(()=> {
     console.info()

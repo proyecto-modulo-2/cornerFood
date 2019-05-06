@@ -5,8 +5,14 @@
     <p class="card-text">{{plato.price}}€</p>
     {{!-- <a href="/plato/{{plato._id}}" class="btn btn-primary">Ver Más</a> --}}
   </div>
-  <a href="/{{plato.id}}/edit">Edit</a>
+  <a href="/{{plato.id}}/edit"><button type="submit">Edit</button></a>
 </div>
 <form action="/{{plato.id}}/delete" method="POST">
     <button type="submit">Delete Plato</button>
 </form>
+<br>
+<br>
+<form action="/{{plato.id}}/cesta" method="POST">
+    <button type="submit">Añadir A Cesta</button>
+</form>
+<a href="/cesta"><button type="submit">Ir A Cesta</button></a>
