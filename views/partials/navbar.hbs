@@ -13,6 +13,11 @@
     <div class="bg-dark p-4">
       <h5 class="text-white h4">Collapsed content</h5>
       <span class="text-muted">Toggleable via the navbar brand.</span>
+      {{#if session.email }}
+      <span class="text-muted">{{ session.email }}</span>
+      {{else}}
+      <span class="text-muted">Non authentuicated</span>
+      {{/if}}
     </div>
   </div>
   <nav class="navbar navbar-dark bg-dark">

@@ -37,6 +37,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 // app.use(GoogleStrategy);
 
+app.use((req, res, next) => {
+  res.locals.session = req.user;
+  next();
+})
+
 //Rutas
 const index = require('./routes/index.routes');
 const authRoute = require('./routes/auth.routes');

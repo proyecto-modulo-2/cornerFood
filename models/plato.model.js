@@ -25,5 +25,5 @@ const platosSchema = new mongoose.Schema ({
   }
 })
 
-const Platos = mongoose.model('Platos', platosSchema);
-module.exports = Platos;
+const Plato = mongoose.model('Plato', platosSchema);
+module.exports = Plato;
