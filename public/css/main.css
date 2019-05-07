@@ -12,17 +12,16 @@ body {
 footer{
   position: relative;
   bottom: 0%;
-  width: 100%
-}
-
-.pageFooter{
-  width: 100;
-  height: 100%;
+  width: 100%;
+  height: 30%;
 }
 
 #pageFooter{
+  width: 90%;
+  height: 90%;
   display: flex;
 }
+
 
 .imagen {
   width: 30%;
@@ -31,5 +30,13 @@ footer{
 
 .letra {
   display: inline;
-  display: flex;
+  display: right;
+}
+
+.footer {
+    margin-top:50px;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    
 }
