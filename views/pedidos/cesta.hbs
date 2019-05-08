@@ -9,11 +9,19 @@
         <h5 class="card-title">{{plato.title}}</h5>
         <p class="card-text">{{plato.price}}</p>
         {{!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
+        <form action="/{{plato.id}}/cesta/delete" method="POST">
+          <button type="submit">Delete</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 {{/each}}
+{{plato.price}}
+{{totalPrice}} €
 <form action="" method="POST">
     <button type="submit">Pay</button>
 </form>
+
+
+
