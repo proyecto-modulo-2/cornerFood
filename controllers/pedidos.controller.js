@@ -7,11 +7,25 @@ const session = require('../config/session.config')
 module.exports.verPedidos = (req, res, next) => {
   let user = req.user.id
   Pedido.find({user: user, status: 'active'})
-  .then((pedidos)=> {
-    console.log(pedidos[0].platos)
-    res.render('pedidos/cesta', {pedidos})
+
+  .populate('platos')
+  .exec(function (err, pedidos) {
+    if (err) return handleError(err);
+    let platos = pedidos[0].platos
+    res.render('pedidos/cesta', {platos})
+    // res.send(platos)
   })
-  .catch(next)
+
+  // .exec(function (err, pedidos) {
+  //   if (err) return handleError(err);
+  //   console.log('Los Pedidos: ', pedidos[0].platos.price);
+  // });
+
+  // .then((pedidos)=> {
+  //   console.log(pedidos[0].platos)
+  //   res.render('pedidos/cesta', {pedidos})
+  // })
+  // .catch(next)
 }
 
 module.exports.addPedido = (req, res, next) => {
