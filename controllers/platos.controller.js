@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 const mongoose = require('mongoose');
-const Plato = require('../models/platos.model');
+const Plato = require('../models/plato.model');
 
 
 module.exports.list = (req, res, next) => {
