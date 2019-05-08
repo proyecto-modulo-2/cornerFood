@@ -6,26 +6,15 @@ const session = require('../config/session.config')
 
 module.exports.verPedidos = (req, res, next) => {
   let user = req.user.id
-  Pedido.find({user: user, status: 'active'})
-
+  Pedido.findOne({user: user, status: 'active'})
   .populate('platos')
   .exec(function (err, pedidos) {
     if (err) return handleError(err);
-    let platos = pedidos[0].platos
-    res.render('pedidos/cesta', {platos})
-    // res.send(platos)
+        
+    let platos = pedidos.platos
+
+    res.render('pedidos/cesta', {platos, totalPrice: pedidos.price })
   })
-
-  // .exec(function (err, pedidos) {
-  //   if (err) return handleError(err);
-  //   console.log('Los Pedidos: ', pedidos[0].platos.price);
-  // });
-
-  // .then((pedidos)=> {
-  //   console.log(pedidos[0].platos)
-  //   res.render('pedidos/cesta', {pedidos})
-  // })
-  // .catch(next)
 }
 
 module.exports.addPedido = (req, res, next) => {
@@ -58,3 +47,40 @@ module.exports.addPedido = (req, res, next) => {
   })  
 }
 
+// module.exports.delete = (req, res, next) => {
+//   const id = req.params.id;
+
+//   Pedido.findOne({ user: req.user.id, status: 'active' })
+//     .then(pedido => {
+//       const platosSinPlato = pedido.platos.filter(pId => pId.toString() !== id)
+//       const platos = pedido.platos.filter(pId => pId.toString() === id)
+
+//       platos.pop()
+
+//       pedido.platos = [...platosSinPlato, ...platos]
+
+//       pedido.save()
+//         .then(() => {
+//           res.redirect('/cesta')
+//         })
+//     })
+//   .catch(next)
+// }
+
+module.exports.delete = (req, res, next) => {
+  const id = req.params.id;
+  const user = req.user.id;
+  Pedido.findOne({ user: user, status: 'active' })
+  .then((pedido) => {
+    const platos = pedido.platos
+    var index = platos.indexOf(id);
+    if (index > -1) {
+    platos.splice(index, 1);
+    }
+    pedido.save()
+      .then(() => {
+        res.redirect('/cesta')
+      })
+  })
+  .catch(next)
+}
