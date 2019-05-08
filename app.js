@@ -13,6 +13,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const session = require('./config/session.config');
+
 // const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
 require('./config/db.config');
@@ -26,6 +27,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
+
 
 
 //Middlewares

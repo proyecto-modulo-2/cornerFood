@@ -34,6 +34,7 @@ module.exports.doRegister = (req, res, next) => {
         } else {
           user = new User({
             username,
+             
             email,
             password: password,
             confirmationCode: token
