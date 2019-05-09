@@ -3,6 +3,23 @@ const Pedido = require('../models/pedidos.model');
 const User = require('../models/user.model');
 const Plato = require('../models/plato.model');
 const session = require('../config/session.config')
+const paymentService = require('../services/payment.service')
+
+module.exports.pagar = (req, res, next) => {
+  const user = req.user.id
+  Pedido.findOne({user: user, status: 'active'})
+  .populate('platos')
+  .exec(function (err, pedidos) {
+    if (err) return handleError(err);
+    pedidos.finalPrice = pedidos.price
+    pedidos.save()
+    .then((pedidos) => {
+      const price = pedidos.finalPrice
+      return paymentService.payWithStripe(price)
+    })
+    .catch(next)
+  })
+}
 
 module.exports.verPedidos = (req, res, next) => {
   let user = req.user.id
@@ -12,7 +29,6 @@ module.exports.verPedidos = (req, res, next) => {
     if (err) return handleError(err);
         
     let platos = pedidos.platos
-
     res.render('pedidos/cesta', {platos, totalPrice: pedidos.price })
   })
 }
