@@ -5,6 +5,7 @@ const secure = require('../middlewares/secure.mid');
 
 router.get('/cesta', pedidosController.verPedidos);
 
+router.post('/cesta/pagar', pedidosController.pagar)
 router.post('/:id/cesta/delete', pedidosController.delete);
 router.post('/:id/cesta', pedidosController.addPedido);
 

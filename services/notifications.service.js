@@ -4,8 +4,8 @@ const templates = require('../templates/template');
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'cornerfood.ironhack@gmail.com',// verificar con carlos
-        pass: 'Qwerty12345678'
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS
     }
 });
 
