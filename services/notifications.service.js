@@ -14,7 +14,7 @@ module.exports.activateAccount = (user) => {
     const message = "Hello and welcome to the best food experience you'll try in your life"
 
     return transporter.sendMail({
-        from: '"Corner Food 👻" <myawesome@project.com>',
+        from: '"Corner Food 🥝🥦🍹" <myawesome@project.com>',
         to: user.email, 
         subject: subject, 
         text: message,
