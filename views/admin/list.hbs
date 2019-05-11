@@ -1,0 +1,21 @@
+{{#each pedidos as |pedido|}}
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="https://res.cloudinary.com/corner-food/image/upload/v1556906538/corner-food/Corner_Food_logo_qnsc2z.png" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Pedido de {{pedido.user.username}}</h5>
+        <p class="card-text">{{pedido.finalPrice}}€</p>
+        {{!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
+        <form action="/admin/pedidos/{{pedido.id}}">
+          <button type="submit" class="btn btn-danger btn-sm text-white mr-3">
+            Ver Más
+          </button>
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}

@@ -5,38 +5,6 @@ const Plato = require('../models/plato.model');
 const session = require('../config/session.config')
 const paymentService = require('../services/payment.service')
 
-module.exports.pay = (req, res, next) => {
-  let user = req.user.id
-  console.log(req.user.email)
-  Pedido.findOne({user: user, status: 'active'})
-  .populate('platos')
-  .exec(function (err, pedidos) {
-    if (err) return handleError(err);
-    pedidos.finalPrice = pedidos.price
-    pedidos.save()
-    .then((pedido) => {
-      let total = pedido.finalPrice
-      res.render('pedidos/pagar', {total})
-    })
-    .catch(next)
-  })
-}
-
-// module.exports.doPay = (req, res, next) => {
-//   const price = req.body.total
-//   paymentService.payWithStripe()
-//   .then(() => {
-//     Pedido.findOne({user: req.user.id, status: 'active'})
-//     .then((pedido) => {
-//       pedido.status = 'payed'
-//       pedido.save()
-//       .then(() => {
-//         res.render('pedidos/thankyou')
-//       })
-//     })
-//   })
-//   .catch(next)
-// }
 
 module.exports.verPedidos = (req, res, next) => {
   let user = req.user.id
@@ -80,26 +48,6 @@ module.exports.addPedido = (req, res, next) => {
   })  
 }
 
-// module.exports.delete = (req, res, next) => {
-//   const id = req.params.id;
-
-//   Pedido.findOne({ user: req.user.id, status: 'active' })
-//     .then(pedido => {
-//       const platosSinPlato = pedido.platos.filter(pId => pId.toString() !== id)
-//       const platos = pedido.platos.filter(pId => pId.toString() === id)
-
-//       platos.pop()
-
-//       pedido.platos = [...platosSinPlato, ...platos]
-
-//       pedido.save()
-//         .then(() => {
-//           res.redirect('/cesta')
-//         })
-//     })
-//   .catch(next)
-// }
-
 module.exports.delete = (req, res, next) => {
   const id = req.params.id;
   const user = req.user.id;
@@ -116,4 +64,16 @@ module.exports.delete = (req, res, next) => {
       })
   })
   .catch(next)
+}
+
+module.exports.historico = (req, res, next) => {
+  const user = req.user.id
+  Pedido.find({user: user, status: 'done'})
+  .populate('platos')
+  .exec(function (err, pedidos) {
+    if (err) return handleError(err);
+    let platos = pedidos[0].platos
+    console.log(platos)
+    res.render('pedidos/historico', {platos, pedidos})
+  })
 }

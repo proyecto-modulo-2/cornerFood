@@ -24,7 +24,9 @@ const app = express();
 const index = require('./routes/index.routes');
 const authRoute = require('./routes/auth.routes');
 const platosRoute = require('./routes/platos.routes');
-const pedidosRoute = require('./routes/pedidos.routes')
+const pedidosRoute = require('./routes/pedidos.routes');
+const stripeRoute = require('./routes/stripe.route');
+const adminRoute = require('./routes/admin.routes');
 
 
 //Settings
@@ -49,10 +51,12 @@ app.use((req, res, next) => {
 })
 
 //Rutas
+app.use('/admin', adminRoute);
 app.use('/', index);
 app.use('/', authRoute);
-app.use('/', pedidosRoute);
+app.use('/', stripeRoute);
 app.use('/', platosRoute);
+app.use('/', pedidosRoute);
 
 
 //Static Files

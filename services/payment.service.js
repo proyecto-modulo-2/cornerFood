@@ -7,14 +7,15 @@ module.exports.payWithStripe = (req, res, next) => {
   // console.log(req.body)
   // const price 
   const price = req.body.total
-  console.log(price)
+  console.log(req.body)
+  console.log("---------------------------")
   stripe.customers.create({
     email: req.body.stripeEmail,
     source: req.body.stripeToken
   })
   .then(customer => 
     stripe.charges.create({
-      amount: '30000', //PRECIO DINÁMICO
+      amount: Number(price)*100, //PRECIO DINÁMICO
       description: "Comida Rica Rica",
       currency: "eur",
       customer: customer.id

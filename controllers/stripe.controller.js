@@ -1,13 +1,19 @@
-// const mongoose = require('mongoose');
-// const Pedido = require('../models/pedidos.model');
-// const paymentService = require('../services/payment.service');
+const mongoose = require('mongoose');
+const Pedido = require('../models/pedidos.model');
 
-// module.exports.pagar = (req, res, next) => {
-//   const user = req.user.id
-//   Pedido.findOne({user: user, status: 'active'})
-//   .then((pedido) => {
-//     pedido.finalPrice = pedido.price
-//     console.log(pedido.finalPrice)
-//   })
-//   .catch(next)
-// }
+module.exports.pay = (req, res, next) => {
+  let user = req.user.id
+  console.log(req.user.email)
+  Pedido.findOne({user: user, status: 'active'})
+  .populate('platos')
+  .exec(function (err, pedidos) {
+    if (err) return handleError(err);
+    pedidos.finalPrice = pedidos.price
+    pedidos.save()
+    .then((pedido) => {
+      let total = pedido.finalPrice
+      res.render('pedidos/pagar', {total})
+    })
+    .catch(next)
+  })
+}

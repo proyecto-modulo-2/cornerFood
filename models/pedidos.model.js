@@ -8,7 +8,7 @@ const pedidoSchema = new mongoose.Schema ({
   platos: [{type: Schema.Types.ObjectId, ref:'Plato'}],
   status: {
     type: String,
-    enum: ['active', 'payed'],
+    enum: ['active', 'payed', 'done'],
     default: 'active'
   },
   finalPrice: Number
