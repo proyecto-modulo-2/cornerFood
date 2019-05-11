@@ -10,7 +10,7 @@
         <p class="card-text">{{plato.price}}€</p>
         {{!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
         <form action="/{{plato.id}}/cesta/delete" method="POST">
-          <button type="submit">Delete</button>
+          <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Delete</button>
         </form>
       </div>
     </div>
@@ -20,7 +20,7 @@
 {{!-- {{plato.price}} --}}
 {{totalPrice}} €
 <form action="/pagar" method="GET">
-    <button type="submit">Ir A Pagar</button>
+    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ir A Pagar</button>
 </form>
 
 
