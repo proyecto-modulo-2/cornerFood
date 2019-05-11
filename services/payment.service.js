@@ -29,9 +29,5 @@ module.exports.payWithStripe = (req, res, next) => {
         })
       })
     })
-<<<<<<< HEAD
-}
-=======
     .catch(next)
 }
->>>>>>> c4271056f991a239c0532cfc4259f73328af333f
