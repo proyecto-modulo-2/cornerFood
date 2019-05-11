@@ -21,6 +21,10 @@ require('./config/passport.config');
 
 //Inicializaciones
 const app = express();
+const index = require('./routes/index.routes');
+const authRoute = require('./routes/auth.routes');
+const platosRoute = require('./routes/platos.routes');
+const pedidosRoute = require('./routes/pedidos.routes')
 
 
 //Settings
@@ -45,14 +49,10 @@ app.use((req, res, next) => {
 })
 
 //Rutas
-const index = require('./routes/index.routes');
-const authRoute = require('./routes/auth.routes');
-const platosRoute = require('./routes/platos.routes');
-const pedidosRoute = require('./routes/pedidos.routes')
 app.use('/', index);
 app.use('/', authRoute);
-app.use('/', platosRoute);
 app.use('/', pedidosRoute);
+app.use('/', platosRoute);
 
 
 //Static Files
