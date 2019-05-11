@@ -1,3 +1,4 @@
+{{#if platos}}
 {{#each platos as |plato|}}
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row no-gutters">
@@ -22,6 +23,11 @@
 <form action="/pagar" method="GET">
     <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ir A Pagar</button>
 </form>
-
+{{else}}
+<h2>Todavía no hiciste pedidos, compra YA!</h2>
+  <form action="/home">
+      <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ver Platos</button>
+  </form>
+{{/if}}
 
 

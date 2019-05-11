@@ -69,16 +69,12 @@ passport.use('Local-Auth', new LocalStrategy({
   User.findOne({ email: email})
     
     .then(user => {
-      console.log('entra aqui')
       if (!user) {
         next(null, null, 'Invalid email or password')
       } else {
         return user.checkPassword(password)
           .then(match => {
-            console.log(match)
             if (!match) {
-              console.log("PROBLEMA DE CONTRASEÑA")
-
               next(null, null, 'Invalid email or password')
             } else if (user.status !== 'Active') {
               next(null, null, 'Please activate your account')

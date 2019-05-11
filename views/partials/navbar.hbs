@@ -1,29 +1,29 @@
-<!-- Image and text -->
-{{!-- <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="/home">
-    <img src="https://res.cloudinary.com/corner-food/image/upload/v1556906538/corner-food/Corner_Food_logo_qnsc2z.png" class="d-inline-block align-top" alt="">
-  </a>
-
-</nav> --}}
 <nav class="navbar navbar-light" style="background-color: #7c6143;">
-  <!-- Navbar content -->
   <a class="navbar-brand" href="/home">Corner Food</a>
+  {{#hasRole ./session 'ADMIN'}}
+  <a href="/admin/pedidos">Pedidos Activos</a>
+  <a href="/new">Crear Nuevo Plato</a>
+  {{else}}
+  <a href="/historico">En Anteriores Pedidos..</a>
+  <a href="/cesta">Cesta</a>
+  {{/hasRole}}
+
   <div class="pos-f-t">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <h5 class="text-white h4">Collapsed content</h5>
-      <span class="text-muted">Toggleable via the navbar brand.</span>
-      {{#if session.email }}
-      <span class="text-muted">{{ session.email }}</span>
-      {{else}}
-      <span class="text-muted">Non authentuicated</span>
-      {{/if}}
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h5 class="text-white h4">Collapsed content</h5>
+        <span class="text-muted">Toggleable via the navbar brand.</span>
+        {{#if session.email }}
+        <span class="text-muted">{{ session.email }}</span>
+        {{else}}
+        <span class="text-muted">Non authenticated</span>
+        {{/if}}
+      </div>
     </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
   </div>
-  <nav class="navbar navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </nav>
-</div>
 </nav>

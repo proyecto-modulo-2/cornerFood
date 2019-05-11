@@ -11,10 +11,14 @@ module.exports.verPedidos = (req, res, next) => {
   Pedido.findOne({user: user, status: 'active'})
   .populate('platos')
   .exec(function (err, pedidos) {
-    if (err) return handleError(err);
-        
+    if (pedidos === null) {
+      res.render('pedidos/cesta')
+    } else if (err) {
+      return handleError(err);
+    } else {
     let platos = pedidos.platos
     res.render('pedidos/cesta', {platos, totalPrice: pedidos.price })
+    }
   })
 }
 
@@ -73,7 +77,6 @@ module.exports.historico = (req, res, next) => {
   .exec(function (err, pedidos) {
     if (err) return handleError(err);
     let platos = pedidos[0].platos
-    console.log(platos)
     res.render('pedidos/historico', {platos, pedidos})
   })
 }

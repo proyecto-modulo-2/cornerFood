@@ -3,7 +3,6 @@ const Pedido = require('../models/pedidos.model');
 
 module.exports.pay = (req, res, next) => {
   let user = req.user.id
-  console.log(req.user.email)
   Pedido.findOne({user: user, status: 'active'})
   .populate('platos')
   .exec(function (err, pedidos) {

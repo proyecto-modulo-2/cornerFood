@@ -22,7 +22,6 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.doCreate = (req, res, next) => {
-  console.info(req.file);
   const { title, description, price } = req.body;
   const image = req.file.url;
   const nuevoPlato = new Plato({title, description, image, price})
@@ -32,7 +31,6 @@ module.exports.doCreate = (req, res, next) => {
   })
   .catch((error) => {
     if (error instanceof mongoose.Error.ValidationError) {
-      console.log(error)
       res.render('platos/form2', {error})
     } else {
       next(error)
@@ -44,7 +42,6 @@ module.exports.edit = (req, res, next) => {
   let id = req.params.id
   Plato.findById(id)
   .then((plato) => {
-    // console.log(plato.description)
     res.render('platos/edit', {plato})
   })
   .catch((error)=> {
@@ -56,15 +53,16 @@ module.exports.doEdit = (req, res, next) => {
   let id = req.params.id
   const { title, description, price } = req.body;
   const image = req.file.url;
-  console.log(image);
   Plato.findByIdAndUpdate(id, {title, description, price, image}, {new: true, runValidators: true})
   .then(()=> {
-    console.info()
+    if (image === undefined) {
+      res.send(hola)
+    } else {
     res.redirect('/home')
+    }
   })
   .catch((error)=> {
     if (error instanceof mongoose.Error.ValidationError) {
-      console.log(error)
       res.render('platos/edit', {plato, error})
     } else {
       next(error)
