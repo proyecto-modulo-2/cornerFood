@@ -1,12 +1,51 @@
-[{
-  "title": "Albóndigas con patatas",
-  "description": "Un plato preparado con mucho cariño siguiendo la receta tradicional de la abuela.",
-  "image": "http://www.demoslavueltaaldia.com/sites/default/files/albondigas-carne-arroz-frito.jpg",
-  "price": 10
-}, 
+
+  [{
+    "image" : [
+            "http://res.cloudinary.com/corner-food/image/upload/v1556970959/corner-food/bowls.jpg.jpg"
+    ],
+    "toppings" : [ ],
+    "title" : "HEALTHY BOWL",
+    "description" : "Bowl de fruta y verdura fresca",
+    "price" : 11,
+    "__v" : 0
+},
 {
-  "title": "Lentejas",
-  "description": "Otro de los grandes platos de nuestra abuela.",
-  "image": "https://www.javirecetas.com/wp-content/uploads/2010/04/lentejas-con-chorizo-600x900.jpg",
-  "price": 12 
-  }]
+    "image" : [
+            "http://res.cloudinary.com/corner-food/image/upload/v1556971108/corner-food/tostadas.jpg.jpg"
+    ],
+    "toppings" : [ ],
+    "title" : "Tostadas variadas",
+    "description" : "Tostadas de frutas frescas a elegir",
+    "price" : 5,
+    "__v" : 0
+},
+{
+    "image" : [
+            "http://res.cloudinary.com/corner-food/image/upload/v1556971309/corner-food/hummus.jpg.jpg"
+    ],
+    "toppings" : [ ],
+    "title" : "Hummus de Remolacha y queso",
+    "description" : "Hummus de remolacha y variado de quesos frescos",
+    "price" : 7,
+    "__v" : 0
+},
+{
+    "image" : [
+            "http://res.cloudinary.com/corner-food/image/upload/v1556971428/corner-food/zumos-smoothies-granizados-y-otras-golosinas-veraniegas.jpg.jpg"
+    ],
+    "toppings" : [ ],
+    "title" : " Zumos, smoothies y granizados",
+    "description" : "Zumos de frutas frescas",
+    "price" : 5,
+    "__v" : 0
+},
+{
+    "image" : [
+            "http://res.cloudinary.com/corner-food/image/upload/v1556971838/corner-food/tarros.jpg.jpg"
+    ],
+    "toppings" : [ ],
+    "title" : "Tarro del plato del día",
+    "description" : "Tarros con platos del día. Cada día disponemos de 3 tipos de platos del día.",
+    "price" : 6,
+    "__v" : 0
+}]
