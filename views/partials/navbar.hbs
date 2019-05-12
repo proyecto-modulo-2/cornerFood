@@ -1,20 +1,21 @@
 <nav class="navbar navbar-light" style="background-color: #7c6143;">
   <a class="navbar-brand" href="/home">Corner Food</a>
-  {{!-- {{#hasRole ./session 'ADMIN'}}
-  <a href="/admin/pedidos">Pedidos Activos</a>
-  <a href="/new">Crear Nuevo Plato</a>
-  {{else}}
-  <a href="/historico">En Anteriores Pedidos..</a>
-  <a href="/cesta">Cesta</a>
-  {{/hasRole}} --}}
+        {{!-- {{#hasRole ./session 'ADMIN'}} --}}
+        <a href="/admin/pedidos">Pedidos Activos</a>
+        <a href="/new">Crear Nuevo Plato</a>
+        {{!-- {{else}} --}}
+        <a href="/historico">En Anteriores Pedidos..</a>
+        <a href="/cesta">Cesta</a>
+        {{!-- {{/hasRole}} --}}
+    <a class="navbar-brand" href="/logout">Log Out</a>
 
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
       <div class="bg-dark p-4">
         <h5 class="text-white h4">Collapsed content</h5>
         <span class="text-muted">Toggleable via the navbar brand.</span>
-        {{#if session.email }}
-        <span class="text-muted">{{ session.email }}</span>
+        {{#if session }}
+        <span class="text-muted">{{ session }}</span>
         {{else}}
         <span class="text-muted">Non authenticated</span>
         {{/if}}

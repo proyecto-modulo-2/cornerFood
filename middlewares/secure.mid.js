@@ -13,7 +13,7 @@ module.exports.checkRole = (role) => {
         if (req.user.role === role) {
             next()
         } else {
-            next(createError(403, 'Insufficient role'))
+            res.redirect('/home')
         }
     }
 }

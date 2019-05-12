@@ -7,8 +7,6 @@ module.exports.payWithStripe = (req, res, next) => {
   // console.log(req.body)
   // const price 
   const price = req.body.total
-  console.log(req.body)
-  console.log("---------------------------")
   stripe.customers.create({
     email: req.body.stripeEmail,
     source: req.body.stripeToken

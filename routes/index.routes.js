@@ -7,9 +7,7 @@ router.get('/', (req, res, next) => {
   res.render('index')
 });
 
-router.get('/home', platosController.list);
-router.get('/platos/:platoId', platosController.detail)
-
-// secure.isAuthenticated,
+router.get('/home', secure.isAuthenticated, platosController.list);
+router.get('/platos/:platoId', secure.isAuthenticated, platosController.detail)
 
 module.exports = router;
