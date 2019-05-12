@@ -1,13 +1,15 @@
 <nav class="navbar navbar-light" style="background-color: #7c6143;">
   <a class="navbar-brand" href="/home">Corner Food</a>
-        {{!-- {{#hasRole ./session 'ADMIN'}} --}}
-        <a href="/admin/pedidos">Pedidos Activos</a>
-        <a href="/new">Crear Nuevo Plato</a>
-        {{!-- {{else}} --}}
-        <a href="/historico">En Anteriores Pedidos..</a>
-        <a href="/cesta">Cesta</a>
-        {{!-- {{/hasRole}} --}}
-    <a class="navbar-brand" href="/logout">Log Out</a>
+        {{#if session}}
+        <h4>Hi There, {{session.username}}</h4>
+          {{#hasRole ./session 'ADMIN'}}
+            <a href="/admin/pedidos">Pedidos Activos</a>
+            <a href="/new">Crear Nuevo Plato</a>
+          {{else}}
+            <a href="/historico">En Anteriores Pedidos..</a>
+            <a href="/cesta">Cesta</a>
+          {{/hasRole}}
+          <a class="navbar-brand" href="/logout">Log Out</a>
 
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
@@ -27,4 +29,5 @@
       </button>
     </nav>
   </div>
+        {{/if}}
 </nav>

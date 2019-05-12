@@ -6,18 +6,24 @@
     <p class="card-text">{{plato.price}}€</p>
     {{!-- <a href="/plato/{{plato._id}}" class="btn btn-primary">Ver Más</a> --}}
   </div>
-  {{#hasRole ./session 'ADMIN'}}
   <form action="/{{plato.id}}/edit">
+  {{#hasRole ./session 'ADMIN'}}
    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Edit</button>
+   {{/hasRole}}
   </form>
   
 
   <form action="/{{plato.id}}/delete" method="POST">
+    {{#hasRole ./session 'ADMIN'}}
     <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Delete Plato</button>
+    {{/hasRole}}
   </form>
-  {{else}}
+  
   <form action="/{{plato.id}}/cesta" method="POST">
-      <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Añadir A Cesta</button>
+    {{#hasRole ./session 'USER'}}
+    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Añadir A Cesta</button>
+    {{/hasRole}}
   </form>
+  {{#hasRole ./session 'USER'}}
   <a href="/cesta"><button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ir A Cesta</button></a>
   {{/hasRole}}
