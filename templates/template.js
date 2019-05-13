@@ -201,8 +201,8 @@ module.exports = {
        style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:center;color:#555555;"
     >
       <h2>Hello </h2>
-      ${message}
-      Pulsa <a href="http://localhost:3000/auth/confirm/${user.confirmationCode}">aqui</a> para activar tu cuenta
+      ${message}.
+      Follow <a href="http://localhost:3000/auth/confirm/${user.confirmationCode}">this link</a> to activate your account!
     </div>
   
             </td>
