@@ -16,11 +16,12 @@ module.exports.verPedidos = (req, res, next) => {
     } else if (err) {
       return handleError(err);
     } else {
-    let platos = pedidos.platos
-    res.render('pedidos/cesta', {platos, totalPrice: pedidos.price })
+      let platos = pedidos.platos
+      res.render('pedidos/cesta', {platos, totalPrice: pedidos.price })
     }
   })
 }
+
 
 module.exports.addPedido = (req, res, next) => {
   let user = req.user.id
@@ -28,11 +29,11 @@ module.exports.addPedido = (req, res, next) => {
   Pedido.find({user: user, status: 'active'})
   .then((pedido)=> {
     if (pedido[0] !== undefined) {
-    pedido[0].platos.push(plato)
-    pedido[0].save(function (err) {
-      if (err) return handleError(err);
-      res.redirect(`/platos/${plato}`)
-    })
+      pedido[0].platos.push(plato)
+      pedido[0].save(function (err) {
+        if (err) return handleError(err);
+        res.redirect(`/platos/${plato}`)
+      })
     } else {
       const pedido = new Pedido ({ user, platos: plato })
       pedido.save()
@@ -47,36 +48,43 @@ module.exports.addPedido = (req, res, next) => {
         }
       })
     }})
-  .catch((error)=> {
-    next(error)
-  })  
-}
-
-module.exports.delete = (req, res, next) => {
-  const id = req.params.id;
-  const user = req.user.id;
-  Pedido.findOne({ user: user, status: 'active' })
-  .then((pedido) => {
-    const platos = pedido.platos
-    var index = platos.indexOf(id);
-    if (index > -1) {
-    platos.splice(index, 1);
-    }
-    pedido.save()
+    .catch((error)=> {
+      next(error)
+    })  
+  }
+  
+  module.exports.delete = (req, res, next) => {
+    const id = req.params.id;
+    const user = req.user.id;
+    Pedido.findOne({ user: user, status: 'active' })
+    .then((pedido) => {
+      const platos = pedido.platos
+      var index = platos.indexOf(id);
+      if (index > -1) {
+        platos.splice(index, 1);
+      }
+      pedido.save()
       .then(() => {
         res.redirect('/cesta')
       })
-  })
-  .catch(next)
-}
-
+    })
+    .catch(next)
+  }
+  
 module.exports.historico = (req, res, next) => {
   const user = req.user.id
   Pedido.find({user: user, status: 'done'})
   .populate('platos')
   .exec(function (err, pedidos) {
-    if (err) return handleError(err);
-    let platos = pedidos[0].platos
-    res.render('pedidos/historico', {platos, pedidos})
+    if (pedidos[0] === null || pedidos[0] === undefined) {
+      res.render('pedidos/historico')
+    }
+    else if (err) { 
+      return handleError(err);
+    } else {
+      console.log(pedidos[0])
+      let platos = pedidos[0].platos
+      res.render('pedidos/historico', {platos, pedidos})
+    }
   })
 }

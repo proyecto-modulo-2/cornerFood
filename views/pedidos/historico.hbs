@@ -1,3 +1,4 @@
+{{#if pedidos}}
 {{#each pedidos as |pedido|}}
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row no-gutters">
@@ -15,3 +16,9 @@
   </div>
 </div>
 {{/each}}
+{{else}}
+<h2>Todavía no hiciste ningún pedido</h2>
+  <form action="/home">
+      <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ver Platos</button>
+  </form>
+{{/if}}

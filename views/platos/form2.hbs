@@ -11,6 +11,9 @@
 
   <label>Image</label>
   <input type="file" name="image">
+  {{#if imgErr}}
+  <h3>{{imgErr}}</h3>
+  {{/if}}
 
   <input type="submit" value="CREATE">
     {{#each error as |error| }}

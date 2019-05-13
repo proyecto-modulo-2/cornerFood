@@ -23,19 +23,24 @@ module.exports.create = (req, res, next) => {
 
 module.exports.doCreate = (req, res, next) => {
   const { title, description, price } = req.body;
-  const image = req.file.url;
-  const nuevoPlato = new Plato({title, description, image, price})
-  nuevoPlato.save()
-  .then(() => {
-    res.redirect('/home');
-  })
-  .catch((error) => {
-    if (error instanceof mongoose.Error.ValidationError) {
-      res.render('platos/form2', {error})
-    } else {
-      next(error)
-    }
-  })
+  // if (req.file !== undefined) {
+    const image = req.file.url;
+    const nuevoPlato = new Plato({title, description, image, price})
+    nuevoPlato.save()
+    .then(() => {
+      res.redirect('/home');
+    })
+    .catch((error) => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        res.render('platos/form2', {error})
+      } else {
+        next(error)
+      }
+    })
+  // } else {
+  //   res.render('platos/form2', {imgErr: "Put an Image, Man!"})
+  //   console.log("-----------------------")
+  // }
 };
 
 module.exports.edit = (req, res, next) => {
@@ -55,11 +60,7 @@ module.exports.doEdit = (req, res, next) => {
   const image = req.file.url;
   Plato.findByIdAndUpdate(id, {title, description, price, image}, {new: true, runValidators: true})
   .then(()=> {
-    if (image === undefined) {
-      res.send(hola)
-    } else {
     res.redirect('/home')
-    }
   })
   .catch((error)=> {
     if (error instanceof mongoose.Error.ValidationError) {
