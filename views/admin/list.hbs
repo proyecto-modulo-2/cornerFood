@@ -6,12 +6,12 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">Pedido de {{pedido.user.username}}</h5>
+        <h5 class="card-title">Order of {{pedido.user.username}}</h5>
+        <h5 class="card-title">{{pedido.user.email}}</h5>
         <p class="card-text">{{pedido.finalPrice}}€</p>
-        {{!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
         <form action="/admin/pedidos/{{pedido.id}}">
           <button type="submit" class="btn btn-danger btn-sm text-white mr-3">
-            Ver Más
+            See More
           </button>
         </form> 
       </div>

@@ -1,16 +1,21 @@
-<h2>Upload a new Plato</h2>
+<h2>Upload a new plate</h2>
 <form action="/platos" method="post" enctype="multipart/form-data">
-  <label>Title</label>
-  <input type="text" name="title">
-
-  <label>Description</label>
-  <input type="text" name="description">
-
-  <label>Price</label>
-  <input type="number" name="price">
-
-  <label>Image</label>
-  <input type="file" name="image">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" name="title" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" name="description" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Price</label>
+    <input type="number" name="price" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Image</label>
+    <input type="file" name="image" class="form-control-file">
+  </div>
   {{#if imgErr}}
   <h3>{{imgErr}}</h3>
   {{/if}}

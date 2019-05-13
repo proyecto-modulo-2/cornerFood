@@ -42,7 +42,7 @@ module.exports.doRegister = (req, res, next) => {
           return user.save()
             .then(user => {
               return notificationsService.activateAccount(user)
-                .then(() => res.redirect('/login'));
+                .then(() => res.render('auth/regconf', {user}));
             })
         }
     })

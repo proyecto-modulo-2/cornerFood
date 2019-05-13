@@ -3,11 +3,11 @@
         {{#if session}}
         <h4>Hi There, {{session.username}}</h4>
           {{#hasRole ./session 'ADMIN'}}
-            <a href="/admin/pedidos">Pedidos Activos</a>
-            <a href="/new">Crear Nuevo Plato</a>
+            <a href="/admin/pedidos">Active Orders</a>
+            <a href="/new">Create New Plate</a>
           {{else}}
-            <a href="/historico">En Anteriores Pedidos..</a>
-            <a href="/cesta">Cesta</a>
+            <a href="/historico">Past Orders</a>
+            <a href="/cesta">Basket</a>
           {{/hasRole}}
           <a class="navbar-brand" href="/logout">Log Out</a>
 

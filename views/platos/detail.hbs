@@ -21,9 +21,9 @@
   
   <form action="/{{plato.id}}/cesta" method="POST">
     {{#hasRole ./session 'USER'}}
-    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Añadir A Cesta</button>
+    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Add to basket</button>
     {{/hasRole}}
   </form>
   {{#hasRole ./session 'USER'}}
-  <a href="/cesta"><button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ir A Cesta</button></a>
+  <a href="/cesta"><button type="submit" class="btn btn-danger btn-sm text-white mr-3">Go to basket</button></a>
   {{/hasRole}}
