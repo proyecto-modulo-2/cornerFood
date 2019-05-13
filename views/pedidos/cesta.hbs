@@ -20,13 +20,15 @@
 {{/each}}
 {{totalPrice}} €
 <form action="/pagar" method="GET">
-    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Ir A Pagar</button>
+    <button type="submit" class="btn btn-primary btn-sm text-white mr-3">Ir A Pagar</button>
 </form>
 {{else}}
+<div class="container">
 <h2>You haven't ordered anything yet, check the food!</h2>
   <form action="/home">
-      <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Check The Food!</button>
+      <button type="submit" class="btn btn-primary btn-sm text-white mr-3">Check The Food!</button>
   </form>
+</div>
 {{/if}}
 
 

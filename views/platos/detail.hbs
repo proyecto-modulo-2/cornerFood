@@ -8,7 +8,7 @@
   </div>
   <form action="/{{plato.id}}/edit">
   {{#hasRole ./session 'ADMIN'}}
-   <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Edit</button>
+   <button type="submit" class="btn btn-primary btn-sm text-white mr-3">Edit</button>
    {{/hasRole}}
   </form>
   
@@ -21,9 +21,9 @@
   
   <form action="/{{plato.id}}/cesta" method="POST">
     {{#hasRole ./session 'USER'}}
-    <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Add to basket</button>
+    <button type="submit" class="btn btn-primary btn-sm text-white mr-3">Add to basket</button>
     {{/hasRole}}
   </form>
   {{#hasRole ./session 'USER'}}
-  <a href="/cesta"><button type="submit" class="btn btn-danger btn-sm text-white mr-3">Go to basket</button></a>
+  <a href="/cesta"><button type="submit" class="btn btn-primary btn-sm text-white mr-3">Go to basket</button></a>
   {{/hasRole}}

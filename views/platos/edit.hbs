@@ -1,23 +1,27 @@
 <h2>Edit the plate</h2>
 <form action="/{{plato.id}}" method="post" enctype="multipart/form-data">
-  <label>Title</label>
-  <input type="text" name="title" value="{{plato.title}}">
-
-  <label></label>
-  <input type="text" name="description" value="{{plato.description}}">
-
-  <label>Price</label>
-  <input type="number" name="price" value="{{plato.price}}">
-
-  <label>Image</label>
-  <input type="file" name="image">
-
-  <input type="submit" value="CREATE">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" name="title" class="form-control" value="{{plato.title}}">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" name="description" rows="3">{{plato.description}}</textarea>
+  </div>
+  <div class="form-group">
+    <label>Price</label>
+    <input type="number" name="price" class="form-control" value="{{plato.price}}">
+  </div>
+  <div class="form-group">
+    <label>Image</label>
+    <input type="file" name="image" class="form-control-file">
+  </div>
+  <input type="submit" value="CREATE" class="btn btn-primary">
     {{#each error as |error| }}
     <div class="error-message">{{ error }}</div>
   {{/each}}
-
 </form>
 <form action="/{{plato.id}}/delete" method="POST">
     <button type="submit" class="btn btn-danger btn-sm text-white mr-3">Delete Plate</button>
 </form>
+
