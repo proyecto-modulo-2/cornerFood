@@ -1,33 +1,15 @@
-<nav class="navbar navbar-light" style="background-color: #7c6143;">
+<nav class="navbar navbar-light" style="background-color: #e6e85b;">
   <a class="navbar-brand" href="/home">Corner Food</a>
-        {{#if session}}
-        <h4>Hi There, {{session.username}}</h4>
-          {{#hasRole ./session 'ADMIN'}}
-            <a href="/admin/pedidos">Active Orders</a>
-            <a href="/new">Create New Plate</a>
-          {{else}}
-            <a href="/historico">Past Orders</a>
-            <a href="/cesta">Basket</a>
-          {{/hasRole}}
-          <a class="navbar-brand" href="/logout">Log Out</a>
-
-  <div class="pos-f-t">
-    <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-dark p-4">
-        <h5 class="text-white h4">Collapsed content</h5>
-        <span class="text-muted">Toggleable via the navbar brand.</span>
-        {{#if session }}
-        <span class="text-muted">{{ session }}</span>
-        {{else}}
-        <span class="text-muted">Non authenticated</span>
-        {{/if}}
-      </div>
-    </div>
-    <nav class="navbar navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </nav>
-  </div>
-        {{/if}}
+    {{#if session}}
+    {{!-- <h4>Hi There, {{session.username}}</h4> --}}
+    <h4></h4>
+      {{#hasRole ./session 'ADMIN'}}
+        <h5><a href="/admin/pedidos" style="color:inherit;text-decoration:none;">Active Orders</a></h5>
+        <h5><a href="/new" style="color:inherit;text-decoration:none">Create New Plate</a></h5>
+      {{else}}
+        <h5><a href="/historico" style="color:inherit;text-decoration:none;">Past Orders</a></h5>
+        <h5><a href="/cesta" style="color:inherit;text-decoration:none;">Basket</a></h5>
+      {{/hasRole}}
+      <a class="navbar-brand" href="/logout">Log Out</a>
+    {{/if}}
 </nav>
